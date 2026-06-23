@@ -123,9 +123,9 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .ticker-track {
-    animation: none;
-    transform: none;
-  }
+/* Keep odds ticker moving on mobile */
+.ticker-track {
+  animation: asfTickerScroll 52s linear infinite !important;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
 }
