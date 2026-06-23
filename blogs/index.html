@@ -5,76 +5,525 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Blogs | Average Sports Fan</title>
-  <meta name="description" content="Read Average Sports Fan blogs about the NFL, college football, betting angles, and football culture." />
+  <meta name="description" content="Read the latest NFL and college football blogs from Average Sports Fan." />
 
   <style>
+    :root {
+      --navy: #061b3d;
+      --blue: #004491;
+      --red: #d71920;
+      --white: #ffffff;
+      --off-white: #f5f5f2;
+      --text: #111111;
+      --soft-shadow: 0 10px 28px rgba(6, 27, 61, 0.12);
+      --card-shadow: 0 18px 40px rgba(6, 27, 61, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background: #111;
-      color: #f5f5f5;
-    }
-
-    header, footer {
-      background: #0b0b0b;
-      text-align: center;
-      padding: 24px;
-    }
-
-    header {
-      border-bottom: 4px solid #d71920;
-    }
-
-    nav a {
-      color: white;
-      margin: 0 10px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 32px 20px;
-    }
-
-    article {
-      background: #1c1c1c;
-      border: 1px solid #333;
-      border-radius: 10px;
-      padding: 22px;
-      margin-bottom: 22px;
+      background: var(--off-white);
+      color: var(--text);
     }
 
     a {
-      color: #ffcc00;
-      font-weight: bold;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .site-nav {
+      background:
+        linear-gradient(90deg, rgba(0, 68, 145, 0.25), transparent 20%, transparent 80%, rgba(215, 25, 32, 0.18)),
+        var(--navy);
+      color: var(--white);
+      padding: 18px 7%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .site-nav a {
+      font-size: 14px;
+      padding-bottom: 5px;
+      border-bottom: 3px solid transparent;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--red);
+      border-bottom-color: var(--red);
+    }
+
+    .page-hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 310px;
+      background:
+        radial-gradient(circle at center, rgba(255,255,255,0.97), rgba(255,255,255,0.86) 52%, rgba(235,238,244,0.9)),
+        linear-gradient(90deg, rgba(215, 25, 32, 0.08), transparent 35%, transparent 65%, rgba(0, 68, 145, 0.10));
+      border-bottom: 6px solid var(--navy);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 44px 20px 34px;
+    }
+
+    .page-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(6,27,61,0.03), rgba(6,27,61,0.03)),
+        repeating-linear-gradient(
+          90deg,
+          rgba(6,27,61,0.025) 0,
+          rgba(6,27,61,0.025) 1px,
+          transparent 1px,
+          transparent 52px
+        );
+      pointer-events: none;
+    }
+
+    .corner-brush {
+      position: absolute;
+      width: 500px;
+      opacity: 0.95;
+      z-index: 1;
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,0.12));
+      pointer-events: none;
+    }
+
+    .brush-red-left {
+      left: -220px;
+      top: 18px;
+      transform: rotate(-23deg);
+    }
+
+    .brush-blue-right {
+      right: -220px;
+      bottom: -40px;
+      transform: rotate(18deg);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 5;
+      width: min(900px, 100%);
+      display: grid;
+      place-items: center;
+    }
+
+    .hero-logo {
+      width: 150px;
+      margin-bottom: 16px;
+      filter: drop-shadow(0 12px 18px rgba(6, 27, 61, 0.28));
+    }
+
+    .hero-kicker {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      padding: 7px 12px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+
+    .page-hero h1 {
+      margin: 0;
+      font-family: Impact, "Arial Black", sans-serif;
+      color: var(--navy);
+      font-size: clamp(58px, 8vw, 104px);
+      line-height: 0.9;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      text-shadow: 3px 3px 0 rgba(255,255,255,0.9);
+    }
+
+    .page-hero h1 span {
+      color: var(--red);
+      display: block;
+      font-style: italic;
+      font-size: clamp(30px, 4vw, 52px);
+      margin-top: 8px;
+    }
+
+    .page-hero p {
+      max-width: 720px;
+      margin: 18px auto 0;
+      color: var(--navy);
+      font-size: 18px;
+      line-height: 1.45;
+      font-weight: 800;
+    }
+
+    .page-wrap {
+      width: min(1220px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .section-title {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 22px;
+      margin: 36px 0 22px;
+      color: var(--navy);
+      font-family: Impact, "Arial Black", sans-serif;
+      font-size: clamp(30px, 4vw, 46px);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+
+    .section-title::before,
+    .section-title::after {
+      content: "";
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(6,27,61,0.22), transparent);
+    }
+
+    .section-title span::before,
+    .section-title span::after {
+      content: "★";
+      color: var(--red);
+      font-size: 20px;
+      margin: 0 18px;
+      vertical-align: middle;
+    }
+
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .filter-pill {
+      border: 2px solid var(--navy);
+      background: var(--white);
+      color: var(--navy);
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: 13px;
+      cursor: pointer;
+      box-shadow: var(--soft-shadow);
+    }
+
+    .filter-pill.active,
+    .filter-pill:hover {
+      background: var(--red);
+      color: var(--white);
+      border-color: var(--red);
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-bottom: 36px;
+    }
+
+    .post-card {
+      min-height: 230px;
+      border-radius: 12px;
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(6,27,61,0.42), rgba(6,27,61,0.96)),
+        linear-gradient(135deg, #294b79, #061b3d);
+      color: var(--white);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      box-shadow: var(--soft-shadow);
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+    }
+
+    .post-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(215,25,32,0.22), transparent 24%),
+        radial-gradient(circle at 85% 10%, rgba(255,255,255,0.08), transparent 22%);
+      pointer-events: none;
+    }
+
+    .post-card > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .post-tag {
+      width: fit-content;
+      padding: 5px 9px;
+      background: rgba(0,0,0,0.48);
+      border: 1px solid rgba(255,255,255,0.55);
+      border-radius: 4px;
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .post-date {
+      margin-bottom: 10px;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.78);
+    }
+
+    .post-card h2 {
+      margin: 0 0 8px;
+      font-family: Impact, "Arial Black", sans-serif;
+      text-transform: uppercase;
+      font-size: 30px;
+      line-height: 1;
+      letter-spacing: 0.01em;
+    }
+
+    .post-card p {
+      margin: 0 0 14px;
+      font-size: 14px;
+      line-height: 1.4;
+      font-weight: 700;
+    }
+
+    .post-card a {
+      color: var(--white);
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+
+    .empty-posts {
+      grid-column: 1 / -1;
+      background: var(--white);
+      color: var(--navy);
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: var(--soft-shadow);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .site-footer {
+      width: min(1220px, calc(100% - 40px));
+      margin: 4px auto 0;
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 12px 12px 0 0;
+      padding: 22px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      font-weight: 700;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .footer-brand img {
+      width: 58px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      text-transform: uppercase;
+      font-size: 13px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 980px) {
+      .nav-left {
+        justify-content: center;
+        gap: 16px;
+      }
+
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .site-footer {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-brand {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-nav {
+        padding: 14px 20px;
+      }
+
+      .page-wrap {
+        width: min(100% - 24px, 1220px);
+      }
+
+      .page-hero h1 {
+        font-size: 58px;
+      }
+
+      .section-title span::before,
+      .section-title span::after {
+        display: none;
+      }
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <h1>Average Sports Fan</h1>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/blogs/">Blogs</a>
-      <a href="/about.html">About</a>
+
+  <header class="site-nav">
+    <nav class="nav-left">
+      <a href="../index.html">Home</a>
+      <a class="active" href="index.html">Blogs</a>
+      <a href="../nfl/index.html">NFL</a>
+      <a href="../college-football/index.html">College Football</a>
     </nav>
   </header>
 
-  <main>
-    <h2>Blogs</h2>
+  <section class="page-hero">
+    <img src="../images/red-brush.png" class="corner-brush brush-red-left" alt="">
+    <img src="../images/blue-brush.png" class="corner-brush brush-blue-right" alt="">
 
-    <article>
-      <h3>The Supplemental Draft: What It Is and How It Works</h3>
-      <p>What is the supplemental draft and why does it matter?.</p>
-      <a href="blogs/the-supplemental-draft-what-it-is-and-how-it-works.html">Read more</a>
-    </article>
+    <div class="hero-content">
+      <img src="../images/logo.png" class="hero-logo" alt="Average Sports Fan logo">
+      <div class="hero-kicker">All Blogs</div>
+
+      <h1>
+        Average Takes
+        <span>Maximum Chaos</span>
+      </h1>
+
+      <p>
+        Every Average Sports Fan blog in one place — NFL, college football,
+        rankings, reactions, arguments, and whatever else fans are yelling about.
+      </p>
+    </div>
+  </section>
+
+  <main class="page-wrap">
+    <h2 class="section-title"><span>Latest Blogs</span></h2>
+
+    <div class="filter-bar">
+      <button class="filter-pill active" data-filter="All">All</button>
+      <button class="filter-pill" data-filter="NFL">NFL</button>
+      <button class="filter-pill" data-filter="College Football">College Football</button>
+    </div>
+
+    <section class="blog-grid" id="all-posts">
+      <div class="empty-posts">Loading blogs...</div>
+    </section>
   </main>
 
-  <footer>
-    <p>&copy; 2026 Average Sports Fan.</p>
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <img src="../images/logo.png" alt="Average Sports Fan logo">
+      <div>
+        <strong>Average Sports Fan</strong><br>
+        Real fans. Real opinions. Zero filter.
+      </div>
+    </div>
+
+    <nav class="footer-links">
+      <a href="../index.html">Home</a>
+      <a href="index.html">Blogs</a>
+      <a href="../nfl/index.html">NFL</a>
+      <a href="../college-football/index.html">College Football</a>
+    </nav>
   </footer>
+
+  <script src="../data/posts.js"></script>
+  <script>
+    const postsContainer = document.getElementById("all-posts");
+    const filterButtons = document.querySelectorAll(".filter-pill");
+
+    function getBlogUrl(postUrl) {
+      if (postUrl.startsWith("http") || postUrl.startsWith("../")) {
+        return postUrl;
+      }
+
+      return "../" + postUrl;
+    }
+
+    function renderPosts(category = "All") {
+      const filteredPosts = posts
+        .slice()
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .filter(post => category === "All" || post.category === category);
+
+      if (filteredPosts.length === 0) {
+        postsContainer.innerHTML = `
+          <div class="empty-posts">No ${category} blogs published yet.</div>
+        `;
+        return;
+      }
+
+      postsContainer.innerHTML = filteredPosts.map(post => `
+        <article class="post-card">
+          <div class="post-tag">${post.category}</div>
+          <div class="post-date">${post.displayDate}</div>
+          <h2>${post.title}</h2>
+          <p>${post.description}</p>
+          <a href="${getBlogUrl(post.url)}">Read Article →</a>
+        </article>
+      `).join("");
+    }
+
+    filterButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        filterButtons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+        renderPosts(button.dataset.filter);
+      });
+    });
+
+    renderPosts();
+  </script>
+
 </body>
 </html>
