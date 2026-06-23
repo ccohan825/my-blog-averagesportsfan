@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- CHANGE THIS FOR EVERY ARTICLE -->
+  <title>ARTICLE TITLE HERE | Average Sports Fan</title>
+  <meta name="description" content="ARTICLE DESCRIPTION HERE." />
+
+  <!-- This keeps the template itself out of Google. Remove this line after copying the template for a real article. -->
+  <meta name="robots" content="noindex">
+
+  <!-- Shared article branding/style -->
+  <link rel="stylesheet" href="../styles/article.css">
+</head>
+
+<body>
+
+  <header class="site-nav">
+    <nav class="nav-left">
+      <a href="../index.html">Home</a>
+      <a class="active" href="index.html">Blogs</a>
+      <a href="../nfl/index.html">NFL</a>
+      <a href="../college-football/index.html">College Football</a>
+    </nav>
+  </header>
+
+  <section class="page-hero">
+    <img src="../images/red-brush.png" class="corner-brush brush-red-left" alt="">
+    <img src="../images/blue-brush.png" class="corner-brush brush-blue-right" alt="">
+
+    <div class="hero-content">
+      <img src="../images/logo.png" class="hero-logo" alt="Average Sports Fan logo">
+
+      <!-- CHANGE CATEGORY: NFL or College Football -->
+      <div class="hero-kicker">NFL</div>
+
+      <!-- CHANGE ARTICLE TITLE -->
+      <h1>ARTICLE TITLE HERE</h1>
+
+      <!-- CHANGE SHORT ARTICLE SUMMARY -->
+      <p>
+        SHORT ARTICLE SUMMARY HERE.
+      </p>
+
+      <div class="article-meta">
+        <!-- CHANGE DATE -->
+        <span>Month Day, Year</span>
+        <span>Average Sports Fan</span>
+      </div>
+    </div>
+  </section>
+
+  <main class="article-wrap">
+    <article class="article-card">
+      <div class="article-topbar"></div>
+
+      <div class="article-body">
+
+        <!-- ARTICLE STARTS HERE -->
+
+        <p>
+          Write your opening paragraph here.
+        </p>
+
+        <p>
+          Write your second paragraph here.
+        </p>
+
+        <h2>Section Heading Here</h2>
+
+        <p>
+          Write the next section of your article here.
+        </p>
+
+        <p>
+          Write your closing paragraph here.
+        </p>
+
+        <!-- ARTICLE ENDS HERE -->
+
+      </div>
+
+      <div class="article-actions">
+        <a class="article-button red" href="index.html">← Back to Blogs</a>
+
+        <!-- CHANGE THIS BUTTON BASED ON CATEGORY -->
+        <a class="article-button" href="../nfl/index.html">More NFL Blogs</a>
+
+        <!-- For a College Football article, use this instead:
+        <a class="article-button" href="../college-football/index.html">More College Football Blogs</a>
+        -->
+      </div>
+    </article>
+  </main>
+
+  <section class="related-section">
+    <h2 class="section-title"><span>More From ASF</span></h2>
+
+    <section class="blog-grid" id="related-posts">
+      <div class="empty-posts">Loading more blogs...</div>
+    </section>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <img src="../images/logo.png" alt="Average Sports Fan logo">
+      <div>
+        <strong>Average Sports Fan</strong><br>
+        Real fans. Real opinions. Zero filter.
+      </div>
+    </div>
+
+    <nav class="footer-links">
+      <a href="../index.html">Home</a>
+      <a href="index.html">Blogs</a>
+      <a href="../nfl/index.html">NFL</a>
+      <a href="../college-football/index.html">College Football</a>
+    </nav>
+  </footer>
+
+  <script src="../data/posts.js"></script>
+  <script>
+    const relatedPostsContainer = document.getElementById("related-posts");
+
+    // CHANGE THIS TO MATCH THE REAL ARTICLE FILE PATH
+    // Example: blogs/the-nfl-teams-lying-to-themselves-the-most.html
+    const currentArticlePath = "blogs/ARTICLE-FILE-NAME-HERE.html";
+
+    function getBlogUrl(postUrl) {
+      if (postUrl.startsWith("http") || postUrl.startsWith("../")) {
+        return postUrl;
+      }
+
+      return "../" + postUrl;
+    }
+
+    const relatedPosts = posts
+      .slice()
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .filter(post => post.url !== currentArticlePath)
+      .slice(0, 3);
+
+    if (relatedPosts.length === 0) {
+      relatedPostsContainer.innerHTML = `
+        <div class="empty-posts">More blogs coming soon.</div>
+      `;
+    } else {
+      relatedPostsContainer.innerHTML = relatedPosts.map(post => `
+        <article class="post-card">
+          <div class="post-tag">${post.category}</div>
+          <div class="post-date">${post.displayDate}</div>
+          <h3>${post.title}</h3>
+          <p>${post.description}</p>
+          <a href="${getBlogUrl(post.url)}">Read Article →</a>
+        </article>
+      `).join("");
+    }
+  </script>
+
+  <script src="../data/email-signup.js"></script>
+
+</body>
+</html>
