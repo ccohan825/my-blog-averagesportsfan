@@ -183,7 +183,7 @@
 
     .falling-fan-img {
       width: 360px;
-      left: -80px;
+      left: -85px;
       top: 25px;
       transform: rotate(-4deg);
       margin-right: 0;
@@ -191,7 +191,9 @@
 
     .standing-fan-img {
       width: 355px;
-      top: 140px;
+      left: 95px;
+      top: 25px;
+      transform: rotate(3deg);
       margin-left: 0;
     }
 
@@ -444,10 +446,6 @@
       letter-spacing: 0.01em;
     }
 
-    .post-card h3 span {
-      color: var(--red);
-    }
-
     .post-card p {
       margin: 0 0 12px;
       font-size: 14px;
@@ -455,11 +453,31 @@
       font-weight: 700;
     }
 
+    .post-date {
+      margin-bottom: 10px;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.78);
+    }
+
     .post-card a {
       color: var(--white);
       font-weight: 900;
       text-transform: uppercase;
       font-size: 13px;
+    }
+
+    .empty-posts {
+      grid-column: 1 / -1;
+      background: var(--white);
+      color: var(--navy);
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: var(--soft-shadow);
+      font-weight: 800;
+      text-align: center;
     }
 
     .email-strip {
@@ -571,12 +589,14 @@
       .falling-fan-img {
         width: 260px;
         left: 0;
+        top: 0;
         transform: rotate(-4deg);
       }
 
       .standing-fan-img {
         width: 260px;
         left: 0;
+        top: 0;
         transform: rotate(3deg);
       }
 
@@ -649,8 +669,8 @@
     <nav class="nav-left">
       <a class="active" href="index.html">Home</a>
       <a href="blogs/index.html">Blogs</a>
-      <a href="#">NFL</a>
-      <a href="#">College Football</a>
+      <a href="nfl/index.html">NFL</a>
+      <a href="college-football/index.html">College Football</a>
     </nav>
   </header>
 
@@ -707,30 +727,8 @@
 
     <h2 class="section-title"><span>Latest Blogs</span></h2>
 
-    <section class="blog-grid">
-      <article class="post-card">
-        <div class="post-tag">NFL</div>
-        <h3>The Supplemental Draft: <span>What It Is</span></h3>
-        <p>
-          Why the NFL created the Supplemental Draft, how the process works,
-          and the story of Al Hunter.
-        </p>
-        <a href="blogs/the-supplemental-draft-what-it-is-and-how-it-works.html">Read Article →</a>
-      </article>
-
-      <article class="post-card">
-        <div class="post-tag">NFL</div>
-        <h3>More NFL Takes <span>Coming Soon</span></h3>
-        <p>Future NFL reaction blogs, rankings, and overreactions will go here.</p>
-        <a href="blogs/index.html">Read Blogs →</a>
-      </article>
-
-      <article class="post-card">
-        <div class="post-tag">College Football</div>
-        <h3>College Football Chaos <span>Coming Soon</span></h3>
-        <p>Future college football arguments, playoff takes, and Saturday reactions will go here.</p>
-        <a href="blogs/index.html">Read Blogs →</a>
-      </article>
+    <section class="blog-grid" id="latest-posts">
+      <div class="empty-posts">Loading latest blogs...</div>
     </section>
 
     <section class="email-strip">
@@ -758,10 +756,36 @@
     <nav class="footer-links">
       <a href="index.html">Home</a>
       <a href="blogs/index.html">Blogs</a>
-      <a href="#">NFL</a>
-      <a href="#">College Football</a>
+      <a href="nfl/index.html">NFL</a>
+      <a href="college-football/index.html">College Football</a>
     </nav>
   </footer>
+
+  <script src="data/posts.js"></script>
+  <script>
+    const latestPostsContainer = document.getElementById("latest-posts");
+
+    const latestPosts = posts
+      .slice()
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .slice(0, 3);
+
+    if (latestPosts.length === 0) {
+      latestPostsContainer.innerHTML = `
+        <div class="empty-posts">No blogs published yet.</div>
+      `;
+    } else {
+      latestPostsContainer.innerHTML = latestPosts.map(post => `
+        <article class="post-card">
+          <div class="post-tag">${post.category}</div>
+          <div class="post-date">${post.displayDate}</div>
+          <h3>${post.title}</h3>
+          <p>${post.description}</p>
+          <a href="${post.url}">Read Article →</a>
+        </article>
+      `).join("");
+    }
+  </script>
 
 </body>
 </html>
