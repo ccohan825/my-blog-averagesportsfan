@@ -6,5 +6,12 @@ const posts = [
     date: "2026-06-22",
     displayDate: "June 22, 2026",
     url: "blogs/the-supplemental-draft-what-it-is-and-how-it-works.html"
-  }
-];
+  },
+  {
+    title: "The NFL Has a Huge Gambling Problem",
+    description: "Since 2019 over 10 players in the league have been suspended for gambling violations and the league denying Brendan Sorsby to the supplemental draft is the league's newest hypocritical moves.",
+    category: "NFL",
+    date: "2026-06-24",
+    displayDate: "June 24, 2026",
+    url: "blogs/the-nfl-has-a-huge-gambling-problem.html"
+  },
