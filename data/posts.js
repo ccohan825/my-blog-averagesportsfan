@@ -1,5 +1,13 @@
 const posts = [
   {
+    title: "Most Likely College Gameday Destinations 2026",
+    description: "Exploring the most likely locations for College Gameday in the 2026 season.",
+    category: "College Football",
+    date: "2026-06-27",
+    displayDate: "June 27, 2026",
+    url: "blogs/most-likely-college-gameday-destinations-2026.html"
+  },
+  {
     title: "The NFL Has a Huge Gambling Problem",
     description: "Since 2019 over 10 players in the league have been suspended for gambling violations and the league denying Brendan Sorsby to the supplemental draft is the league's newest hypocritical moves.",
     category: "NFL",
